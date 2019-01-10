@@ -1,0 +1,116 @@
+ const placeholder = 
+  `# Enter your Markdown in the Editor on the left and see the Html result in the previewer on the right
+<br/>
+
+
+<br/><br/>    
+  ## This is a sub-heading...
+  ### And here's some other cool stuff:
+    
+  Heres some code, \`<div></div>\`, between 2 backticks.
+  
+  \`\`\`
+  // this is multi-line code:
+  
+  function anotherExample(firstLine, lastLine) {
+    if (firstLine == '\`\`\`' && lastLine == '\`\`\`') {
+      return multiLineCode;
+    }
+  }
+  \`\`\`
+    
+  You can also make text **bold**... whoa!
+  Or _italic_.
+  Or... wait for it... **_both!_**
+  And feel free to go crazy ~~crossing stuff out~~.
+  
+  There's also [links](https://www.freecodecamp.com), and
+  > Block Quotes!
+  
+  And if you want to get really crazy, even tables:
+  
+  Wild Header | Crazy Header | Another Header?
+  ------------ | ------------- | ------------- 
+  Your content can | be here, and it | can be here....
+  And here. | Okay. | I think we get it.
+  
+  - And of course there are lists.
+    - Some are bulleted.
+       - With different indentation levels.
+          - That look like this.
+  
+  
+  1. And there are numbererd lists too.
+  1. Use just 1s if you want! 
+  1. But the list goes on...
+  - Even if you use dashes or asterisks.
+  * images:
+  
+  ![React Logo w/ Text](https://goo.gl/Umyytc)
+<img src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Flag_of_Sweden.svg" alt="drawing" width="200"/>
+
+  `
+
+
+
+
+class MyApp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      inputValue: placeholder
+    }
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange(event) {
+    this.setState({
+      inputValue: event.target.value
+    });
+     function createMarkup(){
+       return {__html: this.state.inputValue};
+       
+     }
+    
+  }
+  render() {
+    return (
+      <div>
+        
+      <div className="container topBottomMargin">
+          <h1 className="text-center">Welcome to this React Markdown Previewer</h1>
+       <div className="row topBottomMargin">
+        <div className='col-md-6'>
+          <h3 className="text-center">Editor</h3>
+        <textarea id="editor"
+          value={this.state.inputValue}
+          onChange={this.handleChange} className="border border-primary md-textarea form-control" type="text"  rows="25"/>
+          </div>
+       
+              <div className='col-md-6'>
+          <h3 className="text-center">Previewer</h3>
+               
+        <div className="border border-success" id="preview" dangerouslySetInnerHTML={{__html:(marked(this.state.inputValue))}}/>
+        
+           </div>
+       </div>
+       </div>
+         <Footer/>
+        </div>
+    );
+  }
+};
+
+
+const Footer = () => {
+  return(
+<p className="text-center">Written by <a href="https://github.com/londonjob" target="_blank">londonjob</a></p>
+    
+    
+  )
+};
+
+
+
+
+
+ReactDOM.render(<MyApp/>, document.getElementById('root'));
